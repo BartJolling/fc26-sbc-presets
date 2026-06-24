@@ -14,6 +14,7 @@
 // @require      https://raw.githubusercontent.com/BartJolling/inject-some/master/inject-some.js
 // @resource     fc26core           https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.core.js
 // @resource     fc26data           https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.data.js
+// @resource     fc26challengeview  https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.challenge-view.js
 // @resource     fc26squadbuilder   https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.squad-builder-view.js
 // @grant        GM_getResourceText
 // @run-at       document-end
@@ -24,5 +25,6 @@
 
     injectsome.content.script(GM_getResourceText('fc26core'), 'fc26core');
     injectsome.content.script(GM_getResourceText('fc26data'), 'fc26data');
+    injectsome.content.script(GM_getResourceText('fc26challengeview'), 'fc26challengeview');
     injectsome.content.script(GM_getResourceText('fc26squadbuilder'), 'fc26squadbuilder');
 })();

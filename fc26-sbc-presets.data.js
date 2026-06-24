@@ -4,7 +4,7 @@
 // Generic preset template (all fields, with defaults):
 // {
 //     label:              string,   // Display name shown in the dropdown
-//     challengeName:            string,   // Must match the SBC challenge title exactly
+//     challengeName:      string,   // Must match the SBC challenge title exactly
 //
 //     // Toggles: true = ON, false = OFF, null = leave as-is
 //     useConcept:         null,     // Use Concept Players
@@ -28,8 +28,8 @@ var fc26 = fc26 || {};
 
 fc26.presets = [
     {
-        label: 'Lowest Any',
         challengeName: 'Daily Bronze Upgrade',
+        label: 'Lowest from Any',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -43,8 +43,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: 'Lowest SBC Storage',
         challengeName: 'Daily Bronze Upgrade',
+        label: 'Lowest from Storage',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -58,12 +58,12 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: 'Daily Silver Upgrade',
         challengeName: 'Daily Silver Upgrade',
+        label: 'Lowest from Any',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
-        storage: 'My Club',
+        storage: 'Any',
         quality: 'Silver',
         rarity: null,
         minOvr: null,
@@ -72,6 +72,51 @@ fc26.presets = [
         useConcept: null,
         untradeablesOnly: null,
     },
+    {
+        challengeName: 'Daily Silver Upgrade',
+        label: 'Lowest from Storage',        
+        excludeActiveSquad: true,
+        ignorePosition: true,
+        sortBy: 'Rating Low to High',
+        storage: 'SBC Storage',
+        quality: 'Silver',
+        rarity: null,
+        minOvr: null,
+        maxOvr: null,
+        league: null,
+        useConcept: null,
+        untradeablesOnly: null,
+    },
+    {
+        challengeName: 'Daily Common Gold Upgrade',
+        label: 'Lowest Bronze from Any',        
+        excludeActiveSquad: true,
+        ignorePosition: true,
+        sortBy: 'Rating Low to High',
+        storage: 'Any',
+        quality: 'Bronze',
+        rarity: 'Common',
+        minOvr: null,
+        maxOvr: null,
+        league: null,
+        useConcept: null,
+        untradeablesOnly: null,
+    },
+    {
+        challengeName: 'Daily Common Gold Upgrade',
+        label: 'Lowest Silver from Any',        
+        excludeActiveSquad: true,
+        ignorePosition: true,
+        sortBy: 'Rating Low to High',
+        storage: 'Any',
+        quality: 'Silver',
+        rarity: 'Common',
+        minOvr: null,
+        maxOvr: null,
+        league: null,
+        useConcept: null,
+        untradeablesOnly: null,
+    },    
     {
         label: 'Daily Rare Gold Upgrade',
         challengeName: 'Daily Rare Gold Upgrade',
@@ -103,8 +148,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: '5 of 10 81+ Player Pick',
         challengeName: '5 of 10 81+ Player Pick',
+        label: '5 of 10 81+ Player Pick',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -118,8 +163,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: 'Lowest - Any',
         challengeName: '5x 77+ Upgrade',
+        label: 'Lowest - Any',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -133,8 +178,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: 'Lowest - SBC Storage',
         challengeName: '5x 77+ Upgrade',
+        label: 'Lowest - SBC Storage',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -148,8 +193,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: '1 of 5 82+ Player Pick',
         challengeName: '1 of 5 82+ Player Pick',
+        label: '1 of 5 82+ Player Pick',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -163,8 +208,23 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: '3x 87-90 Upgrade',
+        challengeName: '1 of 3 83+ Player Pick',
+        label: 'Max 82 Gold Rare from Any',
+        excludeActiveSquad: true,
+        ignorePosition: true,
+        sortBy: 'Rating Low to High',
+        storage: 'Any',
+        quality: 'Gold',
+        rarity: 'Rare',
+        minOvr: null,
+        maxOvr: 82,
+        league: null,
+        useConcept: null,
+        untradeablesOnly: null,
+    },    
+    {
         challengeName: '3x 87-90 Upgrade',
+        label: '3x 87-90 Upgrade',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating High to Low',
@@ -178,8 +238,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: '2x 84+ Upgrade',
         challengeName: '2x 84+ Upgrade',
+        label: '2x 84+ Upgrade',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -193,8 +253,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: '84+ TOTW Upgrade',
         challengeName: '84+ TOTW Upgrade',
+        label: '84+ TOTW Upgrade',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating High to Low',
@@ -208,12 +268,12 @@ fc26.presets = [
         untradeablesOnly: null,
     },
     {
-        label: 'Provisions Upgrade',
         challengeName: 'Provisions Upgrade',
+        label: 'Exact 85 from Any',
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
-        storage: null,
+        storage: 'Any',
         quality: 'Gold',
         rarity: 'Rare',
         minOvr: 85,
