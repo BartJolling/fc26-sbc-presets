@@ -29,7 +29,7 @@ var fc26 = fc26 || {};
 fc26.presets = [
     {
         challengeName: 'Daily Bronze Upgrade',
-        label: 'Lowest from Any',        
+        label: 'L → H Bronze (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -44,7 +44,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Daily Bronze Upgrade',
-        label: 'Lowest from Storage',        
+        label: 'L → H Bronze (Storage)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -59,7 +59,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Daily Silver Upgrade',
-        label: 'Lowest from Any',        
+        label: 'L → H Silver (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -74,7 +74,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Daily Silver Upgrade',
-        label: 'Lowest from Storage',        
+        label: 'L → H Silver (Storage)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -89,7 +89,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Daily Common Gold Upgrade',
-        label: 'Lowest Bronze from Any',        
+        label: 'L → H Bronze (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -104,7 +104,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Daily Common Gold Upgrade',
-        label: 'Lowest Silver from Any',        
+        label: 'L → H Silver (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -118,8 +118,8 @@ fc26.presets = [
         untradeablesOnly: null,
     },    
     {
-        label: 'Daily Rare Gold Upgrade',
         challengeName: 'Daily Rare Gold Upgrade',
+        label: 'L → H Gold Common (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -149,7 +149,7 @@ fc26.presets = [
     },
     {
         challengeName: '5 of 10 81+ Player Pick',
-        label: '5 of 10 81+ Player Pick',        
+        label: 'L → H Gold Common (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -164,12 +164,12 @@ fc26.presets = [
     },
     {
         challengeName: '5x 77+ Upgrade',
-        label: 'Lowest - Any',        
+        label: 'L → H Gold Common (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
         storage: 'Any',
-        quality: null,
+        quality: 'Gold',
         rarity: 'Common',
         minOvr: null,
         maxOvr: null,
@@ -179,12 +179,12 @@ fc26.presets = [
     },
     {
         challengeName: '5x 77+ Upgrade',
-        label: 'Lowest - SBC Storage',        
+        label: 'L → H Gold Common (Storage)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
         storage: 'SBC Storage',
-        quality: null,
+        quality: 'Gold',
         rarity: 'Common',
         minOvr: null,
         maxOvr: null,
@@ -194,12 +194,12 @@ fc26.presets = [
     },
     {
         challengeName: '1 of 5 82+ Player Pick',
-        label: '1 of 5 82+ Player Pick',        
+        label: 'L → H Gold Rare (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
         storage: null,
-        quality: null,
+        quality: 'Gold',
         rarity: 'Rare',
         minOvr: null,
         maxOvr: 81,
@@ -209,7 +209,7 @@ fc26.presets = [
     },
     {
         challengeName: '1 of 3 83+ Player Pick',
-        label: 'Max 82 Gold Rare from Any',
+        label: 'L → H Gold Rare (Any)',
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
@@ -224,7 +224,7 @@ fc26.presets = [
     },    
     {
         challengeName: '3x 87-90 Upgrade',
-        label: '3x 87-90 Upgrade',        
+        label: 'Highest 82-83 OVR (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating High to Low',
@@ -239,12 +239,12 @@ fc26.presets = [
     },
     {
         challengeName: '2x 84+ Upgrade',
-        label: '2x 84+ Upgrade',        
+        label: 'L → H Gold Rare (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',
         storage: 'Any',
-        quality: null,
+        quality: 'Gold',
         rarity: 'Rare',
         minOvr: null,
         maxOvr: 82,
@@ -254,7 +254,7 @@ fc26.presets = [
     },
     {
         challengeName: '84+ TOTW Upgrade',
-        label: '84+ TOTW Upgrade',        
+        label: 'Highest 83-84 OVR (Any)',        
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating High to Low',
@@ -269,7 +269,7 @@ fc26.presets = [
     },
     {
         challengeName: 'Provisions Upgrade',
-        label: 'Exact 85 from Any',
+        label: 'Exact 85 OVR (Any)',
         excludeActiveSquad: true,
         ignorePosition: true,
         sortBy: 'Rating Low to High',

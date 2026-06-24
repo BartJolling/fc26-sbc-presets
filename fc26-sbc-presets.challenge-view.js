@@ -19,6 +19,8 @@ fc26.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function () {
         });
         if (matchingPresets.length === 0) return;
 
+        matchingPresets.sort(function (a, b) { return a.label.localeCompare(b.label); });
+
         matchingPresets.forEach(function (preset) {
             var btn = document.createElement('button');
             btn.type = 'button';
@@ -26,7 +28,14 @@ fc26.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function () {
             btn.textContent = preset.label;
             btn.setAttribute('data-fc26-action', 'presets');
             btn.addEventListener('click', function () {
-                alert(preset.label);
+                fc26.pendingPreset = preset;
+                var buttons = container.querySelectorAll('button');
+                for (var i = 0; i < buttons.length; i++) {
+                    if (buttons[i].textContent.trim() === 'Use Squad Builder') {
+                        fc26.simulateClick(buttons[i]);
+                        break;
+                    }
+                }
             });
             container.insertBefore(btn, container.children[1] || null);
         });
