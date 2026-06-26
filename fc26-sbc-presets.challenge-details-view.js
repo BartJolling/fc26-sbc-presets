@@ -1,6 +1,5 @@
 // Runs in the EA web app's main world.
 // Challenge view enhancement - adds preset buttons for the current challenge.
-// v2 - direct injection after _generate; no setTimeout and no MutationObserver.
 
 fc26.getActiveChallengeName = fc26.getActiveChallengeName || function (view) {
     if (fc26.lastClickedChallengeName) {

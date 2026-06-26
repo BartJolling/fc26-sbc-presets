@@ -1,0 +1,148 @@
+<div class="ut-squad-builder-view">
+    <div class="ut-squad-builder-view--filters">
+        <p class="ut-squad-builder-view--info">The Squad Builder creates the best squad possible from Players in your
+            Club using pre-set options.</p>
+        <div class="sort-filter-container">
+            <h4>Filter By</h4>
+            <div class="ut-toggle-control-group-view">
+                <div class="ut-toggle-cell-view"><span class="ut-toggle-cell-view--label">Use Concept Players</span>
+                    <div class="ut-toggle-control">
+                        <div class="ut-toggle-control--track"></div>
+                        <div class="ut-toggle-control--grip"></div>
+                    </div>
+                </div>
+                <div class="ut-toggle-cell-view"><span class="ut-toggle-cell-view--label">Untradeables Only</span>
+                    <div class="ut-toggle-control">
+                        <div class="ut-toggle-control--track"></div>
+                        <div class="ut-toggle-control--grip"></div>
+                    </div>
+                </div>
+                <div class="ut-toggle-cell-view"><span class="ut-toggle-cell-view--label">Exclude Active Squad
+                        Players</span>
+                    <div class="ut-toggle-control">
+                        <div class="ut-toggle-control--track"></div>
+                        <div class="ut-toggle-control--grip"></div>
+                    </div>
+                </div>
+                <div class="ut-toggle-cell-view"><span class="ut-toggle-cell-view--label">Ignore Position</span>
+                    <div class="ut-toggle-control">
+                        <div class="ut-toggle-control--track"></div>
+                        <div class="ut-toggle-control--grip"></div>
+                    </div>
+                </div>
+            </div>
+            <h4>Sort By</h4>
+            <div class="inline-list-select ut-drop-down-control">
+                <div class="inline-container"><span class="label">Rating High to Low</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="ut-item-search-view">
+        <div class="ut-item-search-view-ovr-range-container" style="display: block;">
+            <h4 class="ovr-range-title">OVR Range</h4>
+            <h5 class="ovr-range-description">The OVR ranges from 45-99</h5>
+            <div class="ut-double-range-control">
+                <div class="range-slider"><span class="range-fill" style="left: 0%; right: 0%;"></span></div>
+                <div class="range-input"><input type="range" class="min" step="1" min="45" max="99"><input type="range"
+                        class="max" step="1" min="45" max="99"></div>
+                <div class="text-input-container">
+                    <div class="titles"><label>Min OVR</label><label>Max OVR</label></div>
+                    <div class="inputs"><input type="tel" class="ut-number-input-control" placeholder="Any"><input
+                            type="tel" class="ut-number-input-control" placeholder="Any"></div>
+                </div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-player-search-control" style="display: none;">
+            <div class="inline-container">
+                <div class="ut-player-search-control--input-container"><span
+                        class="fut_icon icon_magnifier"></span><button
+                        class="flat inline-list-btn icon_close fut_icon exit-btn icon-btn"></button><input type="text"
+                        class="ut-text-input-control" placeholder="Type Player Name" maxlength="50"></div>
+                <div class="inline-list" style="display: none;">
+                    <div class="sectionHeader"><span class="playerNameTitle">Player Search</span><span
+                            class="ratingTitle">Rating</span></div>
+                    <ul class="ut-button-group playerResultsList"></ul>
+                    <div class="icon_negative playerResultsEmpty" style="display: none;">No results Found</div>
+                </div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-image has-selection" style="display: none;">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/formations/16.png"><span
+                        class="label">4-4-2</span><button class="flat ut-search-filter-control--row-button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-selection has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="images/SearchFilters/players_club.png"><span class="label">Any</span><button
+                        class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="images/SearchFilters/level/any.png"><span class="label">Quality</span><button
+                        class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image" style="display: none;">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="images/SearchFilters/evolution-status/any.png"><span class="label">Evolution
+                        Status</span><button class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="images/SearchFilters/rarity/any.png"><span class="label">Rarity</span><button
+                        class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/positions/default.png"><span
+                        class="label">Position</span><button class="flat ut-search-filter-control--row-button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/chemistrystyles/list/default.png"><span
+                        class="label">Chemistry Style</span><button
+                        class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/flags/dark/default.png"><span
+                        class="label">Country/Region</span><button
+                        class="flat ut-search-filter-control--row-button"></button></div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control force-ltr has-default has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/leagues/dark/default.png"><span
+                        class="label">League</span><button class="flat ut-search-filter-control--row-button"></button>
+                </div>
+            </div>
+        </div>
+        <div class="inline-list-select ut-search-filter-control force-ltr has-default disabled has-image">
+            <div class="inline-container">
+                <div class="ut-search-filter-control--row"><img class="ut-search-filter-control--row-image"
+                        src="https://www.ea.com/ea-sports-fc/ultimate-team/web-app/content/26E4D4D6-8DBB-4A9A-BD99-9C47D3AA341D/2026/fut/items/images/mobile/clubs/dark/default.png"><span
+                        class="label">Club</span><button class="flat ut-search-filter-control--row-button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-container"><button class="btn-standard">Reset</button><button
+            class="btn-standard primary">Build</button></div>
+</div>
