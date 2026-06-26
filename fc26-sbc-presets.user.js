@@ -28,5 +28,5 @@
     injectsome.content.script(GM_getResourceText('fc26data'), 'fc26data');
     injectsome.content.script(GM_getResourceText('challenge-details'), 'challenge-details');
     injectsome.content.script(GM_getResourceText('challenges'), 'challenges');
-    injectsome.content.script(GM_getResourceText('squad-builder'), 'squad-builder');
+//    injectsome.content.script(GM_getResourceText('squad-builder'), 'squad-builder');
 })();

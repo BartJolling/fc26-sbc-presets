@@ -158,8 +158,7 @@ fc26.applySquadBuilderPreset = function (preset, root) {
     if (preset.league !== null) {
         var leagueCtrl = findFilterByImage('/leagues/');
         if (leagueCtrl) {
-            if (preset.league === 'Any') enqueueClear(leagueCtrl);
-            else enqueue(leagueCtrl.querySelector('.label'), preset.league);
+            tasks.push({ leagueCtrl: leagueCtrl, league: preset.league });
         }
     }
 
@@ -173,6 +172,40 @@ fc26.applySquadBuilderPreset = function (preset, root) {
         if (task.clearBtn) {
             simulateClick(task.clearBtn);
             setTimeout(function () { runNext(index + 1); }, 150);
+            return;
+        }
+        if (task.leagueCtrl) {
+            var leagueLabel = task.leagueCtrl.querySelector('.label');
+            var leagueText = leagueLabel && leagueLabel.textContent ? leagueLabel.textContent.trim() : '';
+            var leagueHasSelection = task.leagueCtrl.classList.contains('has-selection');
+            var leagueMarker = '(' + task.league + ')';
+
+            if (leagueHasSelection && leagueText.indexOf(leagueMarker) === -1 && !task.leagueCleared) {
+                var leagueClearBtn = task.leagueCtrl.querySelector('.ut-search-filter-control--row-button');
+                if (leagueClearBtn) {
+                    task.leagueCleared = true;
+                    simulateClick(leagueClearBtn);
+                    setTimeout(function () { runNext(index); }, 200);
+                    return;
+                }
+            }
+
+            simulateClick(leagueLabel);
+            setTimeout(function () {
+                var lis = document.querySelectorAll('.is-open li');
+                var match = null;
+                for (var i = 0; i < lis.length; i++) {
+                    var text = lis[i].textContent ? lis[i].textContent.trim() : '';
+                    if (text.indexOf(leagueMarker) !== -1 || text.indexOf(task.league) !== -1) {
+                        match = lis[i];
+                        break;
+                    }
+                }
+                if (match) {
+                    simulateClick(match);
+                }
+                setTimeout(function () { runNext(index + 1); }, 150);
+            }, 300);
             return;
         }
         simulateClick(task.trigger);
