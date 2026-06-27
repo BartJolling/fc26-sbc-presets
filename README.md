@@ -26,10 +26,15 @@ A Tampermonkey userscript that adds preset management to the EA Sports FC 26 Ult
 
 Choose your browser and install Tampermonkey:
 
-- **Chrome/Edge/Brave**: [Chrome Web Store - Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobp434)
+- **Chrome/Brave**: [Chrome Web Store - Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
+- **Edge**: [Microsoft Edge Add-ons - Tampermonkey](https://microsoftedge.microsoft.com/addons/detail/tampermonkey/iikmkjmpaadaobahmlepeloendndfphd)
 - **Firefox**: [Firefox Add-ons - Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
 
-### Step 2: Install FC26 SBC Presets
+### Step 2: Give Tampermonkey Permission to Use Script
+
+Follow [this guide](https://www.tampermonkey.net/faq.php?locale=en&q=Q209) on the Tampermonkley website to give Tampermonkey the necessary permissions to run user scripts
+
+### Step 3: Install FC26 SBC Presets
 
 Click this link to install (requires Tampermonkey to be installed):
 [Install FC26 SBC Presets](https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.user.js)
@@ -49,7 +54,7 @@ Or manually:
 >
 > You can review the source code in this repository before installing.
 
-### Step 3: Use It
+### Step 4: Use It
 
 1. Go to [FC 26 Ultimate Team SBC](https://www.ea.com/ea-sports-fc/ultimate-team/web-app)
 2. Open a Squad Builder challenge
