@@ -1,7 +1,18 @@
 // Runs in the EA web app's main world.
 // Loads a matching preset into Squad Builder as early as possible.
 
+/**
+ * Loads the selected preset into Squad Builder and clicks Build after the filters are applied.
+ * @param {object} preset - entry from fc26SbcPresets.presets[]
+ * @param {Element} root  - root DOM element of UTSquadBuilderView
+ */
+
 (function () {
+    /**
+     * Gets the current SBC challenge name from the controller or the navbar title.
+     * @param {object} controller - UTSBCSquadBuilderViewController instance
+     * @returns {string} current challenge name
+     */
     function getChallengeName(controller) {
         var challenge = controller && controller.challenge;
 
@@ -25,18 +36,41 @@
         return titleEl ? titleEl.textContent.trim() : '';
     }
 
-    function findPreset(challengeName) {
-        var presets = fc26.presets || [];
+    /**
+     * Finds the matching preset for a challenge, optionally by preset label.
+     * @param {string} challengeName - SBC challenge name
+     * @param {string} presetName - optional preset label to match
+     * @returns {object|null} matching preset or null
+     */
+    function findPreset(challengeName, presetName) {
+        var presets = fc26SbcPresets.presets || [];
+        var i;
+        var preset;
 
-        for (var i = 0; i < presets.length; i++) {
-            if (presets[i].challengeName === challengeName) {
-                return presets[i];
+        if (presetName) {
+            for (i = 0; i < presets.length; i++) {
+                preset = presets[i];
+                if (preset.challengeName === challengeName && preset.label === presetName) {
+                    return preset;
+                }
+            }
+        }
+
+        for (i = 0; i < presets.length; i++) {
+            preset = presets[i];
+            if (preset.challengeName === challengeName) {
+                return preset;
             }
         }
 
         return null;
     }
 
+    /**
+     * Converts a rarity label to the EA rarity id.
+     * @param {string} rarity - rarity label
+     * @returns {number|null} rarity id or null
+     */
     function getRarityId(rarity) {
         if (rarity === 'Common') {
             return ItemRarity.NONE;
@@ -53,6 +87,11 @@
         return null;
     }
 
+    /**
+     * Resolves a league label, abbreviation, or id to the EA league id.
+     * @param {string|number} league - league label, abbreviation, or id
+     * @returns {number|null} league id or null
+     */
     function resolveLeagueId(league) {
         var teamConfig = repositories && repositories.TeamConfig;
         var leagues = teamConfig && typeof teamConfig.getLeagues === 'function' ? teamConfig.getLeagues() : null;
@@ -94,6 +133,39 @@
         return null;
     }
 
+    /**
+     * Clicks the Squad Builder Build button after the preset has been applied.
+     * @param {object} controller - UTSquadBuilderViewController instance
+     * @param {number} attemptsLeft - retries left while waiting for the button
+     */
+    function clickBuildWhenReady(controller, attemptsLeft) {
+        var view = controller && controller.getView ? controller.getView() : null;
+        var root = view && view.getRootElement ? view.getRootElement() : view && view.__root ? view.__root : null;
+        var buildBtn;
+
+        if (!root) {
+            if (attemptsLeft > 0) {
+                setTimeout(function () { clickBuildWhenReady(controller, attemptsLeft - 1); }, 200);
+            }
+            return;
+        }
+
+        buildBtn = root.querySelector('.button-container .btn-standard.primary');
+        if (buildBtn) {
+            fc26SbcPresets.simulateClick(buildBtn);
+            return;
+        }
+
+        if (attemptsLeft > 0) {
+            setTimeout(function () { clickBuildWhenReady(controller, attemptsLeft - 1); }, 200);
+        }
+    }
+
+    /**
+     * Applies the selected preset to Squad Builder, then clicks Build.
+     * @param {object} controller - UTSquadBuilderViewController instance
+    * @param {object} preset - entry from fc26SbcPresets.presets[]
+     */
     function applyPreset(controller, preset) {
         var viewModel = controller.viewModel;
         var view = controller.getView ? controller.getView() : null;
@@ -211,11 +283,19 @@
                 view._searchFilters._ovrRangeOptions.setMaxValue(preset.maxOvr);
             }
         }
+
+        clickBuildWhenReady(controller, 10);
     }
 
-    fc26.hookPrototype('UTSquadBuilderViewController', 'init', function () {
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', function () {
         var challengeName = getChallengeName(this);
-        var preset = challengeName ? findPreset(challengeName) : null;
+        var request = fc26SbcPresets.pendingPresetRequest;
+        var presetName = request && request.challengeName === challengeName ? request.presetName : null;
+        var preset = challengeName ? findPreset(challengeName, presetName) : null;
+
+        if (request && request.challengeName === challengeName) {
+            fc26SbcPresets.pendingPresetRequest = null;
+        }
 
         if (preset) {
             applyPreset(this, preset);

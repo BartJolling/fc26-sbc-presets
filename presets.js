@@ -24,9 +24,9 @@
 //     maxOvr:   null,   // integer 45-99
 // }
 
-var fc26 = fc26 || {};
+var fc26SbcPresets = fc26SbcPresets || {};
 
-fc26.presets = [
+fc26SbcPresets.presets = [
     {
         challengeName: 'Daily Bronze Upgrade',
         label: 'L → H Bronze (Any)',
