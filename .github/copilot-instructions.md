@@ -43,6 +43,7 @@ fc26.hookPrototype('UTSomeView', '_generate', function () {
 |---|---|---|---|
 | `UTSBCSquadDetailPanelView` | `_generate` | `.sbc-button-container` | SBC challenge detail panel. FUTGenie injects "Auto Complete" at `children[0]`; our Presets go at `children[1]`. **Challenge title is NOT in the panel root** — get it from `document.querySelector('.ut-navigation-bar-view.navbar-style-landscape h1.title')`. |
 | `UTSquadBuilderView` | `_generate` | `.ut-squad-builder-view--filters` | Opens when clicking "Use Squad Builder". Title also from navbar selector above. Insert between `.ut-squad-builder-view--info` and `.sort-filter-container`. |
+| `UTSquadBuilderViewController` | `updateCriteriaFromChallenge` | — | Early controller lifecycle hook for default criteria. Runs before `viewWillAppear` and before the builder becomes visible. |
 | `UTSBCHubView` | `_generate` | `.container` | Top-level SBC hub listing all sets. |
 | `UTSBCHubView` | `populateTiles` | — | Called when hub tile list is rebuilt. |
 | `UTSBCHubView` | `onUpdate` | — | Called on data refresh. |
@@ -50,6 +51,26 @@ fc26.hookPrototype('UTSomeView', '_generate', function () {
 | `UTMarketSearchFiltersView` | `_generate` | parent of `this._searchButton` | Transfer market filters. |
 | `UTPaginatedItemListView` | `_generate` | list root | Any paginated item list (club, store…). |
 | `UTItemDetailView` | `_generate` | item detail panel | Player/item detail overlay. |
+
+## UTSquadBuilderViewController lifecycle
+
+When the user opens Squad Builder, EA instantiates `UTSquadBuilderViewController` before the view becomes visible. The controller’s setup path runs in this rough order: `init`, `initWithSquad` or `initWithChallenge`, `updateCriteriaFromChallenge`, `viewWillAppear`, then `viewDidAppear`.
+
+For overriding EA defaults, `updateCriteriaFromChallenge` is the useful early interception point. Wrap that prototype method and set controller state before returning, for example:
+
+```js
+const proto = window.UTSquadBuilderViewController && window.UTSquadBuilderViewController.prototype;
+const original = proto && proto.updateCriteriaFromChallenge;
+if (proto && typeof original === 'function') {
+    proto.updateCriteriaFromChallenge = function () {
+        const result = original.apply(this, arguments);
+        // force default criteria here
+        return result;
+    };
+}
+```
+
+`_generate` is later and is better suited to DOM insertion or post-render adjustments.
 
 ## Example: How FUTGenie injects "Auto Complete" (reference)
 
