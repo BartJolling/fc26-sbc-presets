@@ -53,6 +53,47 @@
         return null;
     }
 
+    function resolveLeagueId(league) {
+        var teamConfig = repositories && repositories.TeamConfig;
+        var leagues = teamConfig && typeof teamConfig.getLeagues === 'function' ? teamConfig.getLeagues() : null;
+        var i;
+        var leagueEntry;
+        var normalizedLeague;
+
+        if (typeof league === 'number' && isFinite(league)) {
+            return league;
+        }
+
+        if (!leagues || !leagues.length || league === null || league === undefined) {
+            return null;
+        }
+
+        normalizedLeague = String(league).trim().toUpperCase();
+        if (!normalizedLeague) {
+            return null;
+        }
+
+        if (/^\d+$/.test(normalizedLeague)) {
+            return parseInt(normalizedLeague, 10);
+        }
+
+        for (i = 0; i < leagues.length; i++) {
+            leagueEntry = leagues[i];
+            if (leagueEntry && leagueEntry.abbreviation && String(leagueEntry.abbreviation).trim().toUpperCase() === normalizedLeague) {
+                return leagueEntry.id;
+            }
+        }
+
+        for (i = 0; i < leagues.length; i++) {
+            leagueEntry = leagues[i];
+            if (leagueEntry && leagueEntry.name && String(leagueEntry.name).trim().toUpperCase() === normalizedLeague) {
+                return leagueEntry.id;
+            }
+        }
+
+        return null;
+    }
+
     function applyPreset(controller, preset) {
         var viewModel = controller.viewModel;
         var view = controller.getView ? controller.getView() : null;
@@ -103,6 +144,14 @@
             if (rarityId !== null) {
                 viewModel.searchCriteria.rarities = [rarityId];
                 viewModel.defaultSearchCriteria.rarities = [rarityId];
+            }
+        }
+
+        if (preset.league !== null) {
+            var leagueId = resolveLeagueId(preset.league);
+            if (leagueId !== null) {
+                viewModel.searchCriteria.league = leagueId;
+                viewModel.defaultSearchCriteria.league = leagueId;
             }
         }
 
