@@ -46,3 +46,53 @@ fc26SbcPresets.simulateClick = function (el) {
         el.dispatchEvent(new MouseEvent(eventType, { view: window, bubbles: true, cancelable: true }));
     });
 };
+
+/**
+ * Runs callback once EA's navigation transition has finished.
+ *
+ * When EA pushes a view, UTNavigationController raises an INTERACTION click shield
+ * that blocks input for the duration of the transition, then lowers it ~300ms later
+ * (see UTNavigationController.show). viewDidAppear fires while that shield is still up,
+ * so acting before it lowers lands on an unsettled navigation stack and corrupts
+ * rendering. gClickShield.isInteractionShieldShowing() is the authoritative signal:
+ * we poll it and fire the callback the instant EA lowers the shield. This tracks EA's
+ * real timing (no magic number) and self-corrects if EA changes the duration.
+ *
+ * If the shield API isn't available, falls back to a fixed delay matching EA's window.
+ * @param {Function} callback - invoked once the transition shield has lowered
+ * @param {Object} [options]
+ * @param {number} [options.pollMs=30] - poll interval while the shield is up
+ * @param {number} [options.maxWaitMs=2000] - hard cap before firing regardless
+ * @param {number} [options.fallbackMs=300] - delay used when the shield API is absent
+ */
+fc26SbcPresets.runWhenSettled = function (callback, options) {
+    var opts = options || {};
+    var pollMs = typeof opts.pollMs === 'number' && opts.pollMs > 0 ? opts.pollMs : 30;
+    var maxWaitMs = typeof opts.maxWaitMs === 'number' && opts.maxWaitMs >= 0 ? opts.maxWaitMs : 2000;
+    var fallbackMs = typeof opts.fallbackMs === 'number' && opts.fallbackMs >= 0 ? opts.fallbackMs : 300;
+    var shield = typeof gClickShield !== 'undefined' && gClickShield ? gClickShield : null;
+    var done = false;
+    var start = Date.now();
+
+    if (!shield || typeof shield.isInteractionShieldShowing !== 'function') {
+        setTimeout(callback, fallbackMs);
+        return;
+    }
+
+    function finish() {
+        if (done) { return; }
+        done = true;
+        callback();
+    }
+
+    function poll() {
+        if (done) { return; }
+        if (!shield.isInteractionShieldShowing() || Date.now() - start >= maxWaitMs) {
+            finish();
+            return;
+        }
+        setTimeout(poll, pollMs);
+    }
+
+    poll();
+};

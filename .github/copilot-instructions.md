@@ -72,6 +72,34 @@ if (proto && typeof original === 'function') {
 
 `_generate` is later and is better suited to DOM insertion or post-render adjustments.
 
+## Navigation transition timing (acting after viewDidAppear)
+
+`viewDidAppear` fires **while the navigation push is still committing**. Acting then — e.g. calling `eBuildSelected()` to auto-Build — pops an unsettled navigation stack and corrupts rendering.
+
+EA gates this with an **INTERACTION click shield**. In `UTNavigationController.prototype.show` (`webapp/js/compiled_2.js` ~22560):
+
+```js
+gClickShield.showShield(EAClickShieldView.Shield.INTERACTION);
+// ...push commits, then:
+this.currentController.viewDidAppear();
+setTimeout(function () {
+    gClickShield.hideShield(EAClickShieldView.Shield.INTERACTION);
+}, 300);
+```
+
+The ~300 ms is **not arbitrary** — it is EA's transition window. You cannot safely act before the shield lowers, so nothing can beat it.
+
+**Authoritative "transition done" signal**: `gClickShield` is a global in the main world (where injected modules run), so query it directly:
+
+- `gClickShield.isInteractionShieldShowing()` returns `true` while the transition blocks input, `false` once settled.
+- `EAClickShieldView` is defined in `webapp/js/compiled_4.js` ~13537: holds `shieldCounter {FULL, LOADING, INTERACTION}`, exposes `isInteractionShieldShowing()` / `isShowing()`, and fires `EAClickShieldView.Event.DISMISSED` when all counters reach 0.
+
+**Implemented pattern** — `fc26SbcPresets.runWhenSettled` in `core.js`: poll `gClickShield.isInteractionShieldShowing()` (~30 ms interval), fire the callback when it returns `false`, with a max-wait cap and a fixed-delay fallback if the shield API is absent. This tracks EA's real timing and self-corrects if EA changes the duration.
+
+Rejected alternatives (both fire too early and corrupt rendering): double `requestAnimationFrame` (lands before the push settles) and a debounced `MutationObserver` on `body` (a DOM-quiet gap can occur inside the 300 ms shield window).
+
+`eBuildSelected(e, t, i)` ignores its arguments (only uses `this`), so `controller.eBuildSelected()` is functionally identical to a manual Build button tap.
+
 ## Example: How FUTGenie injects "Auto Complete" (reference)
 
 Example of how the FUT Genie Chrome extension (see the 2.9.2_1 folder) injects the `Auto Complete` button in the sbc challenge view.

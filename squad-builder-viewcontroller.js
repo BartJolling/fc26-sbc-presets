@@ -1,11 +1,5 @@
 // Runs in the EA web app's main world.
-// Loads a matching preset into Squad Builder as early as possible.
-
-/**
- * Loads the selected preset into Squad Builder and clicks Build after the filters are applied.
- * @param {object} preset - entry from fc26SbcPresets.presets[]
- * @param {Element} root  - root DOM element of UTSquadBuilderView
- */
+// Loads a matching preset into Squad Builder and clicks Build when the view is ready.
 
 (function () {
     /**
@@ -134,30 +128,12 @@
     }
 
     /**
-     * Clicks the Squad Builder Build button after the preset has been applied.
+     * Clicks the Squad Builder Build button once the view has finished rendering.
      * @param {object} controller - UTSquadBuilderViewController instance
-     * @param {number} attemptsLeft - retries left while waiting for the button
      */
-    function clickBuildWhenReady(controller, attemptsLeft) {
-        var view = controller && controller.getView ? controller.getView() : null;
-        var root = view && view.getRootElement ? view.getRootElement() : view && view.__root ? view.__root : null;
-        var buildBtn;
-
-        if (!root) {
-            if (attemptsLeft > 0) {
-                setTimeout(function () { clickBuildWhenReady(controller, attemptsLeft - 1); }, 200);
-            }
-            return;
-        }
-
-        buildBtn = root.querySelector('.button-container .btn-standard.primary');
-        if (buildBtn) {
-            fc26SbcPresets.simulateClick(buildBtn);
-            return;
-        }
-
-        if (attemptsLeft > 0) {
-            setTimeout(function () { clickBuildWhenReady(controller, attemptsLeft - 1); }, 200);
+    function clickBuildNow(controller) {
+        if (controller && typeof controller.eBuildSelected === 'function') {
+            controller.eBuildSelected();
         }
     }
 
@@ -284,21 +260,37 @@
             }
         }
 
-        clickBuildWhenReady(controller, 10);
+        controller._fc26PresetApplied = true;
+
     }
 
     fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', function () {
+        this._fc26PresetApplied = false;
+
         var challengeName = getChallengeName(this);
         var request = fc26SbcPresets.pendingPresetRequest;
-        var presetName = request && request.challengeName === challengeName ? request.presetName : null;
-        var preset = challengeName ? findPreset(challengeName, presetName) : null;
+        var preset = request && request.challengeName === challengeName ? findPreset(challengeName, request.presetName) : null;
 
-        if (request && request.challengeName === challengeName) {
-            fc26SbcPresets.pendingPresetRequest = null;
-        }
+        fc26SbcPresets.pendingPresetRequest = null;
 
         if (preset) {
             applyPreset(this, preset);
         }
+    });
+
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'viewDidAppear', function () {
+        if (!this._fc26PresetApplied) {
+            return;
+        }
+
+        this._fc26PresetApplied = false;
+
+        // viewDidAppear fires while the builder push is still being committed.
+        // Building synchronously here pops the builder off an unsettled navigation
+        // stack and corrupts rendering, so defer until the push has settled.
+        var controller = this;
+        fc26SbcPresets.runWhenSettled(function () {
+            clickBuildNow(controller);
+        });
     });
 }());
