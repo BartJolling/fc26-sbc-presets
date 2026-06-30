@@ -17,12 +17,15 @@
 // @resource     presets-squad-builder     https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/squad-builder-viewcontroller.js
 // @resource     presets-challenge-details https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/challenge-details-view.js
 // @resource     presets-challenges        https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/challenges-view.js
+// @resource     presets-styles            https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.css
 // @grant        GM_getResourceText
 // @run-at       document-end
 // ==/UserScript==
 
 (function () {
     'use strict';
+
+    injectsome.content.css(GM_getResourceText('presets-styles'), 'fc26-sbc-presets-style-resource');
 
     injectsome.content.script(GM_getResourceText('presets-core'), 'presets-core');
     injectsome.content.script(GM_getResourceText('presets-data'), 'presets-data');
