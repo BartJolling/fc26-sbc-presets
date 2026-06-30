@@ -1,7 +1,7 @@
 // Runs in the EA web app's main world.
 // Challenge list enhancement - captures the selected challenge name before navigation continues.
 
-if (!fc26._sbcChallengeListClickTrackerInstalled && typeof document !== 'undefined' && document.addEventListener) {
+if (!fc26SbcPresets._sbcChallengeListClickTrackerInstalled && typeof document !== 'undefined' && document.addEventListener) {
     document.addEventListener('click', function (event) {
         var button = event && event.target && event.target.closest ? event.target.closest('.ut-sbc-requirements-view footer button.btn-standard.primary') : null;
         if (!button) return;
@@ -14,7 +14,7 @@ if (!fc26._sbcChallengeListClickTrackerInstalled && typeof document !== 'undefin
         var title = titleEl && titleEl.textContent ? String(titleEl.textContent).trim() : '';
         if (!title) return;
 
-        fc26.lastClickedChallengeName = title;
+        fc26SbcPresets.lastClickedChallengeName = title;
     }, true);
-    fc26._sbcChallengeListClickTrackerInstalled = true;
+    fc26SbcPresets._sbcChallengeListClickTrackerInstalled = true;
 }

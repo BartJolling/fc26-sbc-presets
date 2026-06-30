@@ -58,8 +58,8 @@ Or manually:
 
 1. Go to [FC 26 Ultimate Team SBC](https://www.ea.com/ea-sports-fc/ultimate-team/web-app)
 2. Open a Squad Builder challenge
-3. A **Presets** dropdown appears at the top of Squad Builder
-4. Select a preset to apply it instantly
+3. The challenge panel shows a **Use Squad Builder** split button
+4. Use the dropdown half to pick a preset, or click the main button to open Squad Builder normally
 
 ## Features
 
@@ -67,6 +67,7 @@ Or manually:
 - **Smart filtering** by storage, quality, rarity, league
 - **OVR range support** for challenges with min/max requirements
 - **Custom toggles** for Untradeable-only, Exclude Active Squad, ignore Position, etc.
+- **Split-button challenge launch** with per-challenge preset menu
 - **Auto-click Build button** option to complete workflow
 
 ## Dependencies

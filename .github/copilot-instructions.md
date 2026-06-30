@@ -43,6 +43,7 @@ fc26.hookPrototype('UTSomeView', '_generate', function () {
 |---|---|---|---|
 | `UTSBCSquadDetailPanelView` | `_generate` | `.sbc-button-container` | SBC challenge detail panel. FUTGenie injects "Auto Complete" at `children[0]`; our Presets go at `children[1]`. **Challenge title is NOT in the panel root** — get it from `document.querySelector('.ut-navigation-bar-view.navbar-style-landscape h1.title')`. |
 | `UTSquadBuilderView` | `_generate` | `.ut-squad-builder-view--filters` | Opens when clicking "Use Squad Builder". Title also from navbar selector above. Insert between `.ut-squad-builder-view--info` and `.sort-filter-container`. |
+| `UTSquadBuilderViewController` | `updateCriteriaFromChallenge` | — | Early controller lifecycle hook for default criteria. Runs before `viewWillAppear` and before the builder becomes visible. |
 | `UTSBCHubView` | `_generate` | `.container` | Top-level SBC hub listing all sets. |
 | `UTSBCHubView` | `populateTiles` | — | Called when hub tile list is rebuilt. |
 | `UTSBCHubView` | `onUpdate` | — | Called on data refresh. |
@@ -50,6 +51,54 @@ fc26.hookPrototype('UTSomeView', '_generate', function () {
 | `UTMarketSearchFiltersView` | `_generate` | parent of `this._searchButton` | Transfer market filters. |
 | `UTPaginatedItemListView` | `_generate` | list root | Any paginated item list (club, store…). |
 | `UTItemDetailView` | `_generate` | item detail panel | Player/item detail overlay. |
+
+## UTSquadBuilderViewController lifecycle
+
+When the user opens Squad Builder, EA instantiates `UTSquadBuilderViewController` before the view becomes visible. The controller’s setup path runs in this rough order: `init`, `initWithSquad` or `initWithChallenge`, `updateCriteriaFromChallenge`, `viewWillAppear`, then `viewDidAppear`.
+
+For overriding EA defaults, `updateCriteriaFromChallenge` is the useful early interception point. Wrap that prototype method and set controller state before returning, for example:
+
+```js
+const proto = window.UTSquadBuilderViewController && window.UTSquadBuilderViewController.prototype;
+const original = proto && proto.updateCriteriaFromChallenge;
+if (proto && typeof original === 'function') {
+    proto.updateCriteriaFromChallenge = function () {
+        const result = original.apply(this, arguments);
+        // force default criteria here
+        return result;
+    };
+}
+```
+
+`_generate` is later and is better suited to DOM insertion or post-render adjustments.
+
+## Navigation transition timing (acting after viewDidAppear)
+
+`viewDidAppear` fires **while the navigation push is still committing**. Acting then — e.g. calling `eBuildSelected()` to auto-Build — pops an unsettled navigation stack and corrupts rendering.
+
+EA gates this with an **INTERACTION click shield**. In `UTNavigationController.prototype.show` (`webapp/js/compiled_2.js` ~22560):
+
+```js
+gClickShield.showShield(EAClickShieldView.Shield.INTERACTION);
+// ...push commits, then:
+this.currentController.viewDidAppear();
+setTimeout(function () {
+    gClickShield.hideShield(EAClickShieldView.Shield.INTERACTION);
+}, 300);
+```
+
+The ~300 ms is **not arbitrary** — it is EA's transition window. You cannot safely act before the shield lowers, so nothing can beat it.
+
+**Authoritative "transition done" signal**: `gClickShield` is a global in the main world (where injected modules run), so query it directly:
+
+- `gClickShield.isInteractionShieldShowing()` returns `true` while the transition blocks input, `false` once settled.
+- `EAClickShieldView` is defined in `webapp/js/compiled_4.js` ~13537: holds `shieldCounter {FULL, LOADING, INTERACTION}`, exposes `isInteractionShieldShowing()` / `isShowing()`, and fires `EAClickShieldView.Event.DISMISSED` when all counters reach 0.
+
+**Implemented pattern** — `fc26SbcPresets.runWhenSettled` in `core.js`: poll `gClickShield.isInteractionShieldShowing()` (~30 ms interval), fire the callback when it returns `false`, with a max-wait cap and a fixed-delay fallback if the shield API is absent. This tracks EA's real timing and self-corrects if EA changes the duration.
+
+Rejected alternatives (both fire too early and corrupt rendering): double `requestAnimationFrame` (lands before the push settles) and a debounced `MutationObserver` on `body` (a DOM-quiet gap can occur inside the 300 ms shield window).
+
+`eBuildSelected(e, t, i)` ignores its arguments (only uses `this`), so `controller.eBuildSelected()` is functionally identical to a manual Build button tap.
 
 ## Example: How FUTGenie injects "Auto Complete" (reference)
 
@@ -104,6 +153,76 @@ Example of how the FUT Genie Chrome extension (see the 2.9.2_1 folder) injects t
     maxOvr:   null,   // integer 45–99
 }
 ```
+
+## League repository snapshot
+
+The Squad Builder league dropdown is populated from `repositories.TeamConfig.getLeagues()`. Use the league `id` as the canonical key, and keep this table aligned with the live app when updating presets.
+
+| id | name | abbreviation |
+|---|---|---|
+| 1 | 3F Superliga | DEN 1 |
+| 4 | 1A Pro League | BEL 1 |
+| 10 | Eredivisie | NED 1 |
+| 13 | Premier League | ENG 1 |
+| 14 | EFL Championship | ENG 2 |
+| 16 | Ligue 1 McDonald's | FRA 1 |
+| 17 | Ligue 2 BKT | FRA 2 |
+| 19 | Bundesliga | GER 1 |
+| 20 | Bundesliga 2 | GER 2 |
+| 31 | Serie A Enilive | ITA 1 |
+| 32 | Serie BKT | ITA 2 |
+| 39 | MLS | MLS |
+| 41 | Eliteserien | NOR 1 |
+| 50 | Scottish Prem | SPFL |
+| 53 | LALIGA EA SPORTS | ESP 1 |
+| 54 | LALIGA HYPERMOTION | ESP 2 |
+| 56 | Allsvenskan | SWE 1 |
+| 60 | EFL League One | ENG 3 |
+| 61 | EFL League Two | ENG 4 |
+| 63 | Hellas Liga | GRE 1 |
+| 65 | SSE Airtricity PD | IRL 1 |
+| 66 | PKO BP Ekstraklasa | POL 1 |
+| 68 | Trendyol Süper Lig | TUR 1 |
+| 78 | Men's National | INT |
+| 80 | Ö. Bundesliga | AUT 1 |
+| 83 | K League 1 | KOR 1 |
+| 189 | Brack Super League | SUI 1 |
+| 308 | Liga Portugal | POR 1 |
+| 317 | Liga Hrvatska | CRO 1 |
+| 319 | Česká Liga | CZE 1 |
+| 322 | Finnliiga | FIN 1 |
+| 330 | SUPERLIGA | ROM 1 |
+| 332 | Ukrayina Liha | UKR 1 |
+| 350 | ROSHN Saudi League | SAU 1 |
+| 351 | A-League | AUS 1 |
+| 353 | LPF | ARG 1 |
+| 1003 | Libertadores | LIB |
+| 1014 | Sudamericana | SUD |
+| 2012 | CSL | CHN 1 |
+| 2070 | Thailand League | THA 1 |
+| 2076 | 3. Liga | GER 3 |
+| 2118 | Icons | ICN |
+| 2136 | Women's Intl. Cup | WNT |
+| 2149 | ISL | IND 1 |
+| 2172 | United Emirates League | UAE 1 |
+| 2209 | Liga Colombia | COL 1 |
+| 2210 | Liga Cyprus | CYP 1 |
+| 2211 | Magyar Liga | HUN 1 |
+| 2215 | GPFBL | GER 1 |
+| 2216 | Barclays WSL | ENG 1 |
+| 2218 | Arkema PL | FRA 1 |
+| 2221 | NWSL | USA 1 |
+| 2222 | Liga F Moeve | ESP 1 |
+| 2228 | Liga Portugal Feminino | POR 1 |
+| 2229 | Nederland Vrouwen Liga | NED 1 |
+| 2230 | Ceska Liga Žen | CZE 1 |
+| 2231 | Schweizer Damen Liga | SUI 1 |
+| 2232 | Sverige Liga | SWE 1 |
+| 2233 | Scottish Women's League | SCO 1 |
+| 2236 | Calcio A Femminile | ITA 1 |
+| 2244 | Liga Azerbaijan | AZE 1 |
+| 2249 | Liga Chile | CHI 1 |
+| 2265 | *global.leagueabbr15.2026.league2265 | PAR |
 
 ## Preset Interaction Rules
 
