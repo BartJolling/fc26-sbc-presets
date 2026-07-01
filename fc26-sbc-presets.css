@@ -1,48 +1,40 @@
 /* FC26 SBC Presets split button styles */
 
 .fc26-sbc-split-button {
-    display: flex;
-    align-items: stretch;
+    display: block;
     position: relative;
     width: calc(100% - 16px);
     margin: 8px auto;
     box-sizing: border-box;
 }
 
-.fc26-sbc-split-main {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    display: block;
-    width: auto;
-    flex: 1 1 0;
-    min-width: 0;
-    margin: 0;
+.fc26-sbc-split-button > button:not(.fc26-sbc-split-toggle) {
+    width: 100%;
 }
 
 .fc26-sbc-split-toggle {
-    flex: 0 0 auto;
-    width: 36px;
-    min-width: 36px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40px;
+    /* Transparent: EA button gradient shows through */
+    background: transparent;
+    border: none;
+    /* Pipe divider only */
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: -2px 0 3px rgba(0, 0, 0, 0.5);
     padding: 0;
     margin: 0;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
-    min-height: 48px;
-    border: 1px solid #a6a6a1;
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
-    color: #fcfcfc;
-    font-size: 18px;
+    color: #fcfcfc !important;
+    font-size: 14px;
     font-family: UltimateTeam, sans-serif;
-    text-align: left;
-    padding-left: 8px;
     cursor: pointer;
     white-space: nowrap;
-    background-color: var(--fc26-split-toggle-bg-color, #30312f);
-    background-image: var(--fc26-split-toggle-bg-image, none);
 }
 
 .fc26-sbc-split-menu {

@@ -140,7 +140,7 @@
     /**
      * Applies the selected preset to Squad Builder, then clicks Build.
      * @param {object} controller - UTSquadBuilderViewController instance
-    * @param {object} preset - entry from fc26SbcPresets.presets[]
+     * @param {object} preset - entry from fc26SbcPresets.presets[]
      */
     function applyPreset(controller, preset) {
         var viewModel = controller.viewModel;

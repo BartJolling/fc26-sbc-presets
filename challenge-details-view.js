@@ -1,6 +1,12 @@
 // Runs in the EA web app's main world.
 // Challenge view enhancement - adds a split button for the current challenge.
 
+/**
+ * Returns the active SBC challenge name.
+ * Prefers the name captured from the last tile click; falls back to the navbar h1 title.
+ * @param {object} view - UTSBCSquadDetailPanelView instance (unused, kept for future use)
+ * @returns {string} challenge name, or empty string if not found
+ */
 fc26SbcPresets.getActiveChallengeName = fc26SbcPresets.getActiveChallengeName || function (view) {
     if (fc26SbcPresets.lastClickedChallengeName) {
         return fc26SbcPresets.lastClickedChallengeName;
@@ -29,6 +35,7 @@ if (!fc26SbcPresets._sbcTileClickTrackerInstalled && typeof document !== 'undefi
 if (!fc26SbcPresets._splitButtonDismissInstalled && typeof document !== 'undefined' && document.addEventListener) {
     fc26SbcPresets._splitButtonDismissInstalled = true;
 
+    /** Collapses all open preset dropdown menus in the page. */
     fc26SbcPresets.closeSplitPresetMenus = function () {
         var wrappers = document.querySelectorAll('[data-fc26-action="split-presets"]');
         for (var i = 0; i < wrappers.length; i++) {
@@ -72,6 +79,10 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function 
 
     matchingPresets.sort(function (a, b) { return a.label.localeCompare(b.label); });
 
+    /**
+     * Finds the "Use Squad Builder" button inside the SBC button container.
+     * @returns {HTMLButtonElement|null} the button element, or null if not present
+     */
     function findUseSquadBuilderButton() {
         var buttons = container.querySelectorAll('button');
         for (var i = 0; i < buttons.length; i++) {
@@ -82,6 +93,12 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function 
         return null;
     }
 
+    /**
+     * Wraps the EA "Use Squad Builder" button in a split-button container and injects
+     * a transparent dropdown-toggle overlay on its right side.
+     * @param {HTMLButtonElement} useSquadBuilderButton - EA's "Use Squad Builder" button
+     * @returns {boolean} true if the split button was installed, false if the button was missing
+     */
     function installSplitButton(useSquadBuilderButton) {
         if (!useSquadBuilderButton) {
             return false;
@@ -99,16 +116,15 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function 
         toggleButton.setAttribute('aria-expanded', 'false');
         toggleButton.setAttribute('aria-label', 'More preset actions');
 
-        useSquadBuilderButton.classList.add('fc26-sbc-split-main');
-        var computedBg = window.getComputedStyle(useSquadBuilderButton);
-        splitButton.style.setProperty('--fc26-split-toggle-bg-color', computedBg.backgroundColor || '#30312f');
-        splitButton.style.setProperty('--fc26-split-toggle-bg-image', computedBg.backgroundImage || 'none');
-
         var menu = document.createElement('ul');
         menu.className = 'fc26-sbc-split-menu';
         menu.setAttribute('role', 'menu');
         menu.hidden = true;
 
+        /**
+         * Opens or closes the preset dropdown menu.
+         * @param {boolean} isOpen - true to open, false to close
+         */
         function setMenuOpen(isOpen) {
             menu.hidden = !isOpen;
             toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');

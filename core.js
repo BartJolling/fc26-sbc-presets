@@ -38,7 +38,10 @@ fc26SbcPresets.hookPrototype = function (className, methodName, afterFn) {
     checkAndHook();
 };
 
-/** Dispatches mousedown + mouseup + click on an element, matching EA's event handling. */
+/**
+ * Dispatches mousedown + mouseup + click on an element, matching EA's event handling.
+ * @param {HTMLElement} el - element to click
+ */
 fc26SbcPresets.simulateClick = function (el) {
     if (!el) return;
     ['mousedown', 'mouseup', 'click'].forEach(function (eventType) {
