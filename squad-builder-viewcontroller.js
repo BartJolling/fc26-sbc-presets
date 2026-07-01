@@ -31,36 +31,6 @@
     }
 
     /**
-     * Finds the matching preset for a challenge, optionally by preset label.
-     * @param {string} challengeName - SBC challenge name
-     * @param {string} presetName - optional preset label to match
-     * @returns {object|null} matching preset or null
-     */
-    function findPreset(challengeName, presetName) {
-        var presets = fc26SbcPresets.presets || [];
-        var i;
-        var preset;
-
-        if (presetName) {
-            for (i = 0; i < presets.length; i++) {
-                preset = presets[i];
-                if (preset.challengeName === challengeName && preset.label === presetName) {
-                    return preset;
-                }
-            }
-        }
-
-        for (i = 0; i < presets.length; i++) {
-            preset = presets[i];
-            if (preset.challengeName === challengeName) {
-                return preset;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Converts a rarity label to the EA rarity id.
      * @param {string} rarity - rarity label
      * @returns {number|null} rarity id or null
@@ -140,7 +110,7 @@
     /**
      * Applies the selected preset to Squad Builder, then clicks Build.
      * @param {object} controller - UTSquadBuilderViewController instance
-     * @param {object} preset - entry from fc26SbcPresets.presets[]
+     * @param {object} preset - entry from fc26SbcPresets.presets[challengeName][]
      */
     function applyPreset(controller, preset) {
         var viewModel = controller.viewModel;
@@ -269,7 +239,9 @@
 
         var challengeName = getChallengeName(this);
         var request = fc26SbcPresets.pendingPresetRequest;
-        var preset = request && request.challengeName === challengeName ? findPreset(challengeName, request.presetName) : null;
+        var preset = request && request.challengeName === challengeName
+            ? fc26SbcPresets.findPresetForChallenge(challengeName, request.presetName)
+            : null;
 
         fc26SbcPresets.pendingPresetRequest = null;
 

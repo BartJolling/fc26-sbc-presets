@@ -72,12 +72,7 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function 
     }
 
     var challengeName = fc26SbcPresets.getActiveChallengeName(this);
-
-    var matchingPresets = (fc26SbcPresets.presets || []).filter(function (p) {
-        return p.challengeName === challengeName;
-    });
-
-    matchingPresets.sort(function (a, b) { return a.label.localeCompare(b.label); });
+    var matchingPresets = fc26SbcPresets.getPresetsForChallenge(challengeName);
 
     /**
      * Finds the "Use Squad Builder" button inside the SBC button container.
@@ -163,7 +158,7 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function 
 
             presetButton.addEventListener('click', function () {
                 fc26SbcPresets.pendingPresetRequest = {
-                    challengeName: preset.challengeName,
+                    challengeName: challengeName,
                     presetName: preset.label
                 };
                 closeMenu();

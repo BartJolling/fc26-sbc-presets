@@ -99,3 +99,47 @@ fc26SbcPresets.runWhenSettled = function (callback, options) {
 
     poll();
 };
+
+/**
+ * Gets presets for a specific challenge.
+ * @param {string} challengeName - SBC challenge name
+ * @returns {object[]} challenge presets sorted by label, empty when missing
+ */
+fc26SbcPresets.getPresetsForChallenge = function (challengeName) {
+    var presetsByChallenge = fc26SbcPresets.presets || {};
+    var list = presetsByChallenge && challengeName ? presetsByChallenge[challengeName] : null;
+    var presets = Array.isArray(list) ? list.slice() : [];
+
+    presets.sort(function (a, b) {
+        var labelA = a && a.label ? String(a.label) : '';
+        var labelB = b && b.label ? String(b.label) : '';
+        return labelA.localeCompare(labelB);
+    });
+
+    return presets;
+};
+
+/**
+ * Finds a preset for a challenge, optionally by label.
+ * @param {string} challengeName - SBC challenge name
+ * @param {string} [presetName] - optional preset label
+ * @returns {object|null} matching preset or first preset for challenge
+ */
+fc26SbcPresets.findPresetForChallenge = function (challengeName, presetName) {
+    var presets = fc26SbcPresets.getPresetsForChallenge(challengeName);
+    var i;
+
+    if (!presets.length) {
+        return null;
+    }
+
+    if (presetName) {
+        for (i = 0; i < presets.length; i++) {
+            if (presets[i] && presets[i].label === presetName) {
+                return presets[i];
+            }
+        }
+    }
+
+    return presets[0];
+};
