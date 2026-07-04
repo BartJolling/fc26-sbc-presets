@@ -2,6 +2,8 @@
 
 A Tampermonkey userscript that adds preset management to the EA Sports FC 26 Ultimate Team Squad Builder. Save and apply squad builder configurations for SBC challenges instantly.
 
+https://github.com/user-attachments/assets/ebc2398f-462b-4ffd-be27-5a3314e0c4fd
+
 ## What It Does
 
 - **Save presets** for every SBC challenge with all squad builder settings (toggles, OVR ranges, filters)
