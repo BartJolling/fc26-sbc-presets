@@ -339,7 +339,7 @@ fc26SbcPresets.presets = {
             rarity: null,
             minOvr: 69,
             maxOvr: 79,
-            league: 'USA 1',
+            league: 'MLS',
             useConcept: null,
             untradeablesOnly: null,
         },
