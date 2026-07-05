@@ -191,16 +191,9 @@
             if (sortDropDown && sortDropDown.setIndexById) sortDropDown.setIndexById(SearchSortID.RATING_ASC);
         }
 
-        if (preset.quality === 'Bronze') {
-            viewModel.defaultSearchCriteria.level = SearchLevel.BRONZE;
-            viewModel.searchCriteria.level = SearchLevel.BRONZE;
-        } else if (preset.quality === 'Silver') {
-            viewModel.defaultSearchCriteria.level = SearchLevel.SILVER;
-            viewModel.searchCriteria.level = SearchLevel.SILVER;
-        } else if (preset.quality === 'Gold') {
-            viewModel.defaultSearchCriteria.level = SearchLevel.GOLD;
-            viewModel.searchCriteria.level = SearchLevel.GOLD;
-        }
+        var qualityLevel = fc26SbcPresets.getEnumValueFromMap(preset.quality, fc26SbcPresets.QUALITY_TO_SEARCH_LEVEL_MAP, SearchLevel.ANY);
+        viewModel.defaultSearchCriteria.level = qualityLevel;
+        viewModel.searchCriteria.level = qualityLevel;
 
         if (preset.storage === 'Any') {
             viewModel.searchFeature = ItemSearchFeature.ANY;

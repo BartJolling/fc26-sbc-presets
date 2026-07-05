@@ -3,6 +3,14 @@
 
 var fc26SbcPresets = fc26SbcPresets || {};
 
+fc26SbcPresets.QUALITY_TO_SEARCH_LEVEL_MAP = {
+    Any: SearchLevel.ANY,
+    Bronze: SearchLevel.BRONZE,
+    Silver: SearchLevel.SILVER,
+    Gold: SearchLevel.GOLD,
+    Special: SearchLevel.SPECIAL
+};
+
 /**
  * Polls until window[className] exists, then wraps methodName on its prototype.
  * afterFn is called with `this` bound to the view instance after the original method runs.
@@ -48,6 +56,25 @@ fc26SbcPresets.simulateClick = function (el) {
         if (eventType === 'click' && typeof el.click === 'function') { return el.click(); }
         el.dispatchEvent(new MouseEvent(eventType, { view: window, bubbles: true, cancelable: true }));
     });
+};
+
+/**
+ * Maps a lookup key to an enum value.
+ * @param {*|null|undefined} value - lookup key
+ * @param {object} enumMap - lookup map from key to enum value
+ * @param {*} [defaultValue=null] - value returned only when no mapped value is resolved
+ * @returns {*} mapped enum value or provided default value
+ */
+fc26SbcPresets.getEnumValueFromMap = function (value, enumMap, defaultValue) {
+    var foundValue = enumMap && Object.prototype.hasOwnProperty.call(enumMap, value)
+        ? enumMap[value]
+        : undefined;
+
+    if (foundValue !== null && foundValue !== undefined) {
+        return foundValue;
+    }
+
+    return defaultValue === undefined ? null : defaultValue;
 };
 
 /**
