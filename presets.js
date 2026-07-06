@@ -150,7 +150,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Bronze (SBC Storage)',
+            label: 'L → H Bronze (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -164,7 +164,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Silver (SBC Storage)',
+            label: 'L → H Silver (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -194,7 +194,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Common (SBC Storage)',
+            label: 'L → H Gold Common (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -208,6 +208,36 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
     ],
+        'Grind Upgrade': [
+        {
+            label: '84 → 83 Rare (Any)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating High to Low',
+            storage: 'Any',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: 83,
+            maxOvr: 84,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+        {
+            label: '84 → 83 Rare (Storage)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating High to Low',
+            storage: 'SBC Storage',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: 83,
+            maxOvr: 84,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+    ],    
     'FOF Glory Hunters Crafting Upgrade': [
         {
             label: 'L → H Gold Common (Any)',
@@ -224,7 +254,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Common (SBC Storage)',
+            label: 'L → H Gold Common (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -494,7 +524,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Common (SBC Storage)',
+            label: 'L → H Gold Common (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -510,7 +540,7 @@ fc26SbcPresets.presets = {
     ],
     '87-Rated Squad': [
         {
-            label: 'Highest 86-87 OVR (Any)',
+            label: '87 → 86 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -524,7 +554,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Highest 86-87 OVR (SBC Storage)',
+            label: '87 → 86 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -540,7 +570,7 @@ fc26SbcPresets.presets = {
     ],
     '88-Rated Squad': [
         {
-            label: 'Highest 87-88 OVR (Any)',
+            label: '88 → 87 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -554,7 +584,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Highest 87-88 OVR (SBC Storage)',
+            label: '88 → 87 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -570,7 +600,7 @@ fc26SbcPresets.presets = {
     ],
     '89-Rated Squad': [
         {
-            label: 'Highest 88-89 OVR (Any)',
+            label: '89 → 88 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -584,7 +614,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Highest 88-89 OVR (SBC Storage)',
+            label: '89 → 88 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -614,7 +644,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Mixed Leagues Upgrade (SBC Storage)',
+            label: 'Mixed Leagues Upgrade (Storage)',
             excludeActiveSquad: null,
             ignorePosition: null,
             sortBy: null,
@@ -644,7 +674,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Common (SBC Storage)',
+            label: 'L → H Gold Common (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -704,7 +734,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (SBC Storage)',
+            label: 'L → H Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -734,7 +764,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (SBC Storage)',
+            label: 'L → H Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -750,7 +780,7 @@ fc26SbcPresets.presets = {
     ],
     '3x 87-90 Upgrade': [
         {
-            label: 'Highest 82-83 OVR (Any)',
+            label: '83 → 82 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -764,7 +794,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Highest 82-83 OVR (SBC Storage)',
+            label: '83 → 82 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -794,7 +824,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (SBC Storage)',
+            label: 'L → H Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -824,7 +854,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (SBC Storage)',
+            label: 'L → H Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -840,7 +870,7 @@ fc26SbcPresets.presets = {
     ],
     '84+ TOTW Upgrade': [
         {
-            label: 'Highest 83-84 OVR (Any)',
+            label: '84 → 83 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -854,7 +884,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Highest 83-84 OVR (SBC Storage)',
+            label: '84 → 83 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating High to Low',
@@ -870,7 +900,7 @@ fc26SbcPresets.presets = {
     ],
     'Provisions Upgrade': [
         {
-            label: 'Exact 85 OVR (Any)',
+            label: '85 Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -884,7 +914,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'Exact 85 OVR (SBC Storage)',
+            label: '85 Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
