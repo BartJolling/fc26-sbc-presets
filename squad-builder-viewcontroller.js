@@ -195,11 +195,9 @@
         viewModel.defaultSearchCriteria.level = qualityLevel;
         viewModel.searchCriteria.level = qualityLevel;
 
-        if (preset.storage === 'Any') {
-            viewModel.searchFeature = ItemSearchFeature.ANY;
-            searchFeatureChanged = true;
-        } else if (preset.storage === 'My Club' || preset.storage === 'SBC Storage') {
-            viewModel.searchFeature = ItemSearchFeature.STORAGE;
+        var searchFeature = fc26SbcPresets.getEnumValueFromMap(preset.storage, fc26SbcPresets.STORAGE_TO_SEARCH_FEATURE_MAP, ItemSearchFeature.ANY);
+        if (searchFeature !== null) {
+            viewModel.searchFeature = searchFeature;
             searchFeatureChanged = true;
         }
 

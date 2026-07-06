@@ -11,6 +11,12 @@ fc26SbcPresets.QUALITY_TO_SEARCH_LEVEL_MAP = {
     Special: SearchLevel.SPECIAL
 };
 
+fc26SbcPresets.STORAGE_TO_SEARCH_FEATURE_MAP = {
+    Any: ItemSearchFeature.ANY,
+    'My Club': ItemSearchFeature.STORAGE,
+    'SBC Storage': ItemSearchFeature.STORAGE
+};
+
 /**
  * Polls until window[className] exists, then wraps methodName on its prototype.
  * afterFn is called with `this` bound to the view instance after the original method runs.
