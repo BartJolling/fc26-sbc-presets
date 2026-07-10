@@ -31,6 +31,7 @@ fc26SbcPresets.hookPrototype = function (className, methodName, afterFn) {
         if (!window[className] || !window[className].prototype) {
             return setTimeout(checkAndHook, 100);
         }
+
         var proto = window[className].prototype;
 
         if (!proto[callbacksKey]) {
@@ -46,6 +47,7 @@ fc26SbcPresets.hookPrototype = function (className, methodName, afterFn) {
                 return result;
             };
         }
+
         proto[callbacksKey].push(afterFn);
     }
 
@@ -68,10 +70,9 @@ fc26SbcPresets.simulateClick = function (el) {
  * Maps a lookup key to an enum value.
  * @param {*|null|undefined} value - lookup key
  * @param {object} enumMap - lookup map from key to enum value
- * @param {*} [defaultValue=null] - value returned only when no mapped value is resolved
- * @returns {*} mapped enum value or provided default value
+ * @returns {*|null} mapped enum value or null when no mapped value is resolved
  */
-fc26SbcPresets.getEnumValueFromMap = function (value, enumMap, defaultValue) {
+fc26SbcPresets.getEnumValueFromMap = function (value, enumMap) {
     var foundValue = enumMap && Object.prototype.hasOwnProperty.call(enumMap, value)
         ? enumMap[value]
         : undefined;
@@ -80,7 +81,7 @@ fc26SbcPresets.getEnumValueFromMap = function (value, enumMap, defaultValue) {
         return foundValue;
     }
 
-    return defaultValue === undefined ? null : defaultValue;
+    return null;
 };
 
 /**

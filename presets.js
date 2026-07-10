@@ -9,6 +9,7 @@
 // {
 //     label:              string,   // Display name shown in the dropdown
 //
+//     // General rule: null means leave the FC26 preset value unchanged.
 //     // Toggles: true = ON, false = OFF, null = leave as-is
 //     useConcept:         null,     // Use Concept Players
 //     untradeablesOnly:   null,     // Untradeables Only
@@ -21,6 +22,7 @@
 //     quality:  null,   // "Bronze" | "Silver" | "Gold"
 //     rarity:   null,   // "Common" | "Rare" | "Special"
 //     league:   null,   // "BEL 1" | "ENG 1" | "ESP 1" | "FRA 1" | "GER 1" | "ITA1" | "NED 1" | "POR 1"
+//     excludeEligibilityKeys: null, // SBCEligibilityKey values to skip when applying challenge defaults
 //
 //     // OVR inputs: null = leave as-is
 //     minOvr:   null,   // integer 45-99
@@ -280,6 +282,7 @@ fc26SbcPresets.presets = {
             minOvr: 45,
             maxOvr: 75,
             league: 'SAU 1',
+            excludeEligibilityKeys: ['PLAYER_QUALITY'],
             useConcept: null,
             untradeablesOnly: null,
         },
@@ -294,6 +297,7 @@ fc26SbcPresets.presets = {
             minOvr: 45,
             maxOvr: 75,
             league: 'ROM 1',
+            excludeEligibilityKeys: ['PLAYER_QUALITY'],
             useConcept: null,
             untradeablesOnly: null,
         },

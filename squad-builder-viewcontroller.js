@@ -191,11 +191,13 @@
             if (sortDropDown && sortDropDown.setIndexById) sortDropDown.setIndexById(SearchSortID.RATING_ASC);
         }
 
-        var qualityLevel = fc26SbcPresets.getEnumValueFromMap(preset.quality, fc26SbcPresets.QUALITY_TO_SEARCH_LEVEL_MAP, SearchLevel.ANY);
-        viewModel.defaultSearchCriteria.level = qualityLevel;
-        viewModel.searchCriteria.level = qualityLevel;
+        var qualityLevel = fc26SbcPresets.getEnumValueFromMap(preset.quality, fc26SbcPresets.QUALITY_TO_SEARCH_LEVEL_MAP);
+        if (qualityLevel !== null) {
+            viewModel.defaultSearchCriteria.level = qualityLevel;
+            viewModel.searchCriteria.level = qualityLevel;
+        }
 
-        var searchFeature = fc26SbcPresets.getEnumValueFromMap(preset.storage, fc26SbcPresets.STORAGE_TO_SEARCH_FEATURE_MAP, ItemSearchFeature.ANY);
+        var searchFeature = fc26SbcPresets.getEnumValueFromMap(preset.storage, fc26SbcPresets.STORAGE_TO_SEARCH_FEATURE_MAP);
         if (searchFeature !== null) {
             viewModel.searchFeature = searchFeature;
             searchFeatureChanged = true;
