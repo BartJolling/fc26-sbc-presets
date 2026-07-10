@@ -227,7 +227,38 @@
 
     }
 
-    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', function () {
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'updateCriteriaFromChallenge',
+        function (challenge) {
+            var request = fc26SbcPresets.pendingPresetRequest;
+            var preset = request
+                ? fc26SbcPresets.findPresetForChallenge(request.challengeName, request.presetName)
+                : null;
+            var excludeKeys = preset && Array.isArray(preset.excludeEligibilityKeys)
+                ? preset.excludeEligibilityKeys
+                : [];
+
+            if (!excludeKeys.length) { return; }
+
+            var allRequirements = challenge.eligibilityRequirements;
+            challenge._fc26OrigRequirements = allRequirements;
+            challenge.eligibilityRequirements = allRequirements.filter(function (req) {
+                var key = req.getFirstKey();
+                for (var i = 0; i < excludeKeys.length; i++) {
+                    if (SBCEligibilityKey[excludeKeys[i]] === key) { return false; }
+                }
+                return true;
+            });
+        },
+        function () {
+            var challenge = this.challenge;
+            if (challenge && challenge._fc26OrigRequirements) {
+                challenge.eligibilityRequirements = challenge._fc26OrigRequirements;
+                delete challenge._fc26OrigRequirements;
+            }
+        }
+    );
+
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', null, function () {
         this._fc26PresetApplied = false;
 
         var challengeName = getChallengeName(this);
@@ -243,7 +274,7 @@
         }
     });
 
-    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'viewDidAppear', function () {
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'viewDidAppear', null, function () {
         if (!this._fc26PresetApplied) {
             return;
         }

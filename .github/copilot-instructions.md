@@ -37,6 +37,24 @@ fc26.hookPrototype('UTSomeView', '_generate', function () {
 });
 ```
 
+## Challenge Requirements panel and eligibility keys
+
+The `UTSBCRequirementsView` / `UTSBCChallengeRequirementsView` panel renders all `challenge.eligibilityRequirements`. Each requirement exposes `getFirstKey()` (a `SBCEligibilityKey` enum value) and `getFirstValue(key)`.
+
+Real example for 'ROSHN Saudi League & SuperLiga' (verified at runtime):
+
+| Key name | Value | Effect in `updateCriteriaFromChallenge` |
+|---|---|---|
+| `LEAGUE_ID` | 350 (SAU 1) | sets `searchCriteria.league` |
+| `SAME_CLUB_COUNT` | 6 | **not processed** — display only |
+| `PLAYER_QUALITY` | 2 (Silver) | sets `searchCriteria.level` |
+| `TEAM_RATING` | 60 | **not processed** — display only |
+| `CHEMISTRY_POINTS` | 10 | **not processed** — display only |
+
+`UTSquadBuilderViewController.updateCriteriaFromChallenge` only handles 4 keys in its switch: `CLUB_ID`, `LEAGUE_ID`, `NATION_ID`, `PLAYER_QUALITY`. All other keys in the requirements array are shown in the panel but do not affect Squad Builder search filter defaults.
+
+The `excludeEligibilityKeys` preset field (implemented via a `beforeFn` hook on `updateCriteriaFromChallenge`) temporarily filters the requirements array before EA processes it, so only those 4 keys are worth excluding.
+
 ## Known hookable EA web app classes
 
 | Class | Method | DOM root selector | Notes |

@@ -61,7 +61,7 @@ if (!fc26SbcPresets._splitButtonDismissInstalled && typeof document !== 'undefin
     }, true);
 }
 
-fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', function () {
+fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', null, function () {
     var root = this.getRootElement ? this.getRootElement() : this.__root;
     if (!root) { return; }
 

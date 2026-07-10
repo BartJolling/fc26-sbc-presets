@@ -22,7 +22,11 @@
 //     quality:  null,   // "Bronze" | "Silver" | "Gold"
 //     rarity:   null,   // "Common" | "Rare" | "Special"
 //     league:   null,   // "BEL 1" | "ENG 1" | "ESP 1" | "FRA 1" | "GER 1" | "ITA1" | "NED 1" | "POR 1"
-//     excludeEligibilityKeys: null, // SBCEligibilityKey values to skip when applying challenge defaults
+//     excludeEligibilityKeys: null, // Prevents EA from pre-setting search filters from challenge requirements.
+//                                   //   'PLAYER_QUALITY' — do not apply quality filter (Bronze/Silver/Gold)
+//                                   //   'LEAGUE_ID'      — do not apply league filter
+//                                   //   'NATION_ID'      — do not apply nation filter
+//                                   //   'CLUB_ID'        — do not apply league + club filter
 //
 //     // OVR inputs: null = leave as-is
 //     minOvr:   null,   // integer 45-99

@@ -24,8 +24,11 @@ fc26SbcPresets.STORAGE_TO_SEARCH_FEATURE_MAP = {
  * @param {string} methodName - prototype method to wrap, e.g. '_generate'
  * @param {Function} afterFn  - called after the original method with the view as `this`
  */
-fc26SbcPresets.hookPrototype = function (className, methodName, afterFn) {
-    var callbacksKey = '_fc26_' + className + '_' + methodName + '_callbacks';
+fc26SbcPresets.hookPrototype = function (className, methodName, beforeFn, afterFn) {
+    if (!beforeFn && !afterFn) { return; }
+
+    var beforeKey = '_fc26_' + className + '_' + methodName + '_before';
+    var afterKey  = '_fc26_' + className + '_' + methodName + '_after';
 
     function checkAndHook() {
         if (!window[className] || !window[className].prototype) {
@@ -34,21 +37,29 @@ fc26SbcPresets.hookPrototype = function (className, methodName, afterFn) {
 
         var proto = window[className].prototype;
 
-        if (!proto[callbacksKey]) {
-            proto[callbacksKey] = [];
+        // Both beforeKey and afterKey arrays are created as a pair
+        // beforeKey presence guarantees afterKey exists too (one-time install guard).
+        if (!proto[beforeKey]) {
+            proto[beforeKey] = [];
+            proto[afterKey]  = [];
             var original = proto[methodName];
             proto[methodName] = function () {
+                var i, self = this;
+                var before = proto[beforeKey];
+                var after  = proto[afterKey];
+                for (i = 0; i < before.length; i++) {
+                    try { before[i].apply(self, arguments); } catch (e) {}
+                }
                 var result = original.apply(this, arguments);
-                var self = this;
-                var cbs = proto[callbacksKey];
-                for (var i = 0; i < cbs.length; i++) {
-                    try { cbs[i].call(self); } catch (e) {}
+                for (i = 0; i < after.length; i++) {
+                    try { after[i].call(self); } catch (e) {}
                 }
                 return result;
             };
         }
 
-        proto[callbacksKey].push(afterFn);
+        if (beforeFn) { proto[beforeKey].push(beforeFn); }
+        if (afterFn)  { proto[afterKey].push(afterFn); }
     }
 
     checkAndHook();
