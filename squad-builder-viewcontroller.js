@@ -229,7 +229,8 @@
 
     fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'updateCriteriaFromChallenge',
         function (challenge) {
-            var request = fc26SbcPresets.pendingPresetRequest;
+            // Read from controller instance — pendingPresetRequest global is already null by now (cleared in init).
+            var request = this._fc26PendingRequest;
             var preset = request
                 ? fc26SbcPresets.findPresetForChallenge(request.challengeName, request.presetName)
                 : null;
@@ -261,13 +262,16 @@
     fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', null, function () {
         this._fc26PresetApplied = false;
 
-        var challengeName = getChallengeName(this);
-        var request = fc26SbcPresets.pendingPresetRequest;
-        var preset = request && request.challengeName === challengeName
-            ? fc26SbcPresets.findPresetForChallenge(challengeName, request.presetName)
-            : null;
-
+        // Copy pending request onto controller before clearing the global,
+        // so updateCriteriaFromChallenge (which runs after init) can still read it.
+        this._fc26PendingRequest = fc26SbcPresets.pendingPresetRequest || null;
         fc26SbcPresets.pendingPresetRequest = null;
+
+        // Use the request's challengeName directly — captured at click time in the challenge detail view.
+        var request = this._fc26PendingRequest;
+        var preset = request
+            ? fc26SbcPresets.findPresetForChallenge(request.challengeName, request.presetName)
+            : null;
 
         if (preset) {
             applyPreset(this, preset);
