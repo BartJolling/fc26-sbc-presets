@@ -1,37 +1,6 @@
 // Runs in the EA web app's main world.
 // Challenge view enhancement - adds a split button for the current challenge.
 
-/**
- * Returns the active SBC challenge name.
- * Prefers the name captured from the last tile click; falls back to the navbar h1 title.
- * @param {object} view - UTSBCSquadDetailPanelView instance (unused, kept for future use)
- * @returns {string} challenge name, or empty string if not found
- */
-fc26SbcPresets.getActiveChallengeName = fc26SbcPresets.getActiveChallengeName || function (view) {
-    if (fc26SbcPresets.lastClickedChallengeName) {
-        return fc26SbcPresets.lastClickedChallengeName;
-    }
-    var titleEl = document.querySelector('.ut-navigation-bar-view.navbar-style-landscape h1.title');
-    if (titleEl && titleEl.textContent) {
-        return String(titleEl.textContent).trim();
-    }
-    return '';
-};
-
-if (!fc26SbcPresets._sbcTileClickTrackerInstalled && typeof document !== 'undefined' && document.addEventListener) {
-    document.addEventListener('click', function (event) {
-        var tile = event && event.target && event.target.closest ? event.target.closest('.ut-sbc-set-tile-view') : null;
-        if (!tile) return;
-
-        var titleEl = tile.querySelector('.tileTitle');
-        var title = titleEl && titleEl.textContent ? String(titleEl.textContent).trim() : '';
-        if (!title) return;
-
-        fc26SbcPresets.lastClickedChallengeName = title;
-    }, true);
-    fc26SbcPresets._sbcTileClickTrackerInstalled = true;
-}
-
 if (!fc26SbcPresets._splitButtonDismissInstalled && typeof document !== 'undefined' && document.addEventListener) {
     fc26SbcPresets._splitButtonDismissInstalled = true;
 
@@ -71,7 +40,7 @@ fc26SbcPresets.hookPrototype('UTSBCSquadDetailPanelView', '_generate', null, fun
         return;
     }
 
-    var challengeName = fc26SbcPresets.getActiveChallengeName(this);
+    var challengeName = fc26SbcPresets.selectedChallengeName || '';
     var matchingPresets = fc26SbcPresets.getPresetsForChallenge(challengeName);
 
     /**

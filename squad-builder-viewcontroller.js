@@ -3,34 +3,6 @@
 
 (function () {
     /**
-     * Gets the current SBC challenge name from the controller or the navbar title.
-     * @param {object} controller - UTSBCSquadBuilderViewController instance
-     * @returns {string} current challenge name
-     */
-    function getChallengeName(controller) {
-        var challenge = controller && controller.challenge;
-
-        if (challenge) {
-            if (typeof challenge.getTitle === 'function') {
-                var title = challenge.getTitle();
-                if (title) {
-                    return String(title).trim();
-                }
-            }
-
-            if (challenge.title) {
-                return String(challenge.title).trim();
-            }
-            if (challenge.name) {
-                return String(challenge.name).trim();
-            }
-        }
-
-        var titleEl = document.querySelector('.ut-navigation-bar-view.navbar-style-landscape h1.title');
-        return titleEl ? titleEl.textContent.trim() : '';
-    }
-
-    /**
      * Converts a rarity label to the EA rarity id.
      * @param {string} rarity - rarity label
      * @returns {number|null} rarity id or null

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         FC26 SBC Presets
 // @namespace    https://github.com/BartJolling/fc26-sbc-presets
-// @version      0.4
+// @version      0.5
 // @description  FC 26 FUT SBC helper
 // @author       BartJolling
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=ea.com
@@ -16,7 +16,7 @@
 // @resource     presets-data              https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/presets.js
 // @resource     presets-squad-builder     https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/squad-builder-viewcontroller.js
 // @resource     presets-challenge-details https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/challenge-details-view.js
-// @resource     presets-challenges        https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/challenges-view.js
+// @resource     presets-challenges        https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/challenges-viewcontroller.js
 // @resource     presets-styles            https://raw.githubusercontent.com/BartJolling/fc26-sbc-presets/main/fc26-sbc-presets.css
 // @grant        GM_getResourceText
 // @run-at       document-end
