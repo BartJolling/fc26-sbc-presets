@@ -214,7 +214,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
     ],
-        'Grind Upgrade': [
+    'Grind Upgrade': [
         {
             label: '84 → 83 Rare (Any)',
             excludeActiveSquad: true,
@@ -243,7 +243,7 @@ fc26SbcPresets.presets = {
             useConcept: null,
             untradeablesOnly: null,
         },
-    ],    
+    ],
     'FOF Glory Hunters Crafting Upgrade': [
         {
             label: 'L → H Gold Common (Any)',
@@ -515,7 +515,7 @@ fc26SbcPresets.presets = {
             useConcept: null,
             untradeablesOnly: null,
         },
-    ],    
+    ],
     'Gold Challenge': [
         {
             label: 'L → H Gold Common (Any)',
@@ -665,7 +665,7 @@ fc26SbcPresets.presets = {
             useConcept: null,
             untradeablesOnly: null,
         },
-    ],    
+    ],
     '87-Rated Squad': [
         {
             label: '87 → 86 Rare (Any)',
@@ -785,7 +785,37 @@ fc26SbcPresets.presets = {
             useConcept: null,
             untradeablesOnly: null,
         },
-    ],    
+    ],
+    '91-Rated Squad': [
+        {
+            label: '91 → 89 Rare (Any)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating High to Low',
+            storage: 'Any',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: 89,
+            maxOvr: 91,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+        {
+            label: '91 → 89 Rare (Storage)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating High to Low',
+            storage: 'SBC Storage',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: 89,
+            maxOvr: 91,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+    ],
     'Mixed Leagues Upgrade': [
         {
             label: 'Mixed Leagues Upgrade (Any)',
