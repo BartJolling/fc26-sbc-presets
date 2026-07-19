@@ -210,7 +210,9 @@
                 ? preset.excludeEligibilityKeys
                 : [];
 
-            if (!excludeKeys.length) { return; }
+            if (!challenge || !challenge.eligibilityRequirements || !excludeKeys.length) {
+                return;
+            }
 
             var allRequirements = challenge.eligibilityRequirements;
             challenge._fc26OrigRequirements = allRequirements;
@@ -231,13 +233,14 @@
         }
     );
 
-    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', null, function () {
+    fc26SbcPresets.hookPrototype('UTSquadBuilderViewController', 'init', function () {
         this._fc26PresetApplied = false;
 
-        // Copy pending request onto controller before clearing the global,
-        // so updateCriteriaFromChallenge (which runs after init) can still read it.
+        // Copy pending request onto controller before original init runs,
+        // because updateCriteriaFromChallenge is called inside init.
         this._fc26PendingRequest = fc26SbcPresets.pendingPresetRequest || null;
         fc26SbcPresets.pendingPresetRequest = null;
+    }, function () {
 
         // Use the request's challengeName directly — captured at click time in the challenge detail view.
         var request = this._fc26PendingRequest;
