@@ -303,6 +303,20 @@ fc26SbcPresets.presets = {
             useConcept: null,
             untradeablesOnly: null,
         },
+        {
+            label: 'L → 81 Gold (Any)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating Low to High',
+            storage: 'Any',
+            quality: 'Gold',
+            rarity: null,
+            minOvr: null,
+            maxOvr: 81,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
     ],    
     'ROSHN Saudi League & SuperLiga': [
         {
@@ -938,7 +952,7 @@ fc26SbcPresets.presets = {
     ],
     '1 of 5 82+ Player Pick': [
         {
-            label: 'L → H Gold Rare (Any)',
+            label: 'L → 81 Gold Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -952,7 +966,7 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (Storage)',
+            label: 'L → 81 Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -968,7 +982,7 @@ fc26SbcPresets.presets = {
     ],
     '1 of 3 83+ Player Pick': [
         {
-            label: 'L → H Gold Rare (Any)',
+            label: 'L → 82 Gold Rare (Any)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
@@ -982,7 +996,37 @@ fc26SbcPresets.presets = {
             untradeablesOnly: null,
         },
         {
-            label: 'L → H Gold Rare (Storage)',
+            label: 'L → 82 Gold Rare (Storage)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating Low to High',
+            storage: 'SBC Storage',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: null,
+            maxOvr: 82,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+    ],
+    '1 of 5 84+ Player Pick': [
+        {
+            label: 'L → 82 Gold Rare (Any)',
+            excludeActiveSquad: true,
+            ignorePosition: true,
+            sortBy: 'Rating Low to High',
+            storage: 'Any',
+            quality: 'Gold',
+            rarity: 'Rare',
+            minOvr: null,
+            maxOvr: 82,
+            league: null,
+            useConcept: null,
+            untradeablesOnly: null,
+        },
+        {
+            label: 'L → 82 Gold Rare (Storage)',
             excludeActiveSquad: true,
             ignorePosition: true,
             sortBy: 'Rating Low to High',
